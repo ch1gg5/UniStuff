@@ -29,7 +29,9 @@ Practical-Lecture-Notes/
 
 | Module | Description |
 |--------|-------------|
-| [COA256-OOP](./COA256-OOP/) | Template / starter module showing the expected structure |
+| [Programming and Databases](./COA122-DB/) | Template / starter module showing the expected structure |
+| [Computer Systems and Low level Programming](./COA128-LLP/) | Template / starter module showing the expected structure |
+| [Object Oriented Programming](./COA256-OOP/) | Template / starter module showing the expected structure |
 | [Example-Module](./Example-Module/) | Template / starter module showing the expected structure |
 
 > Add a new row above as you add more module folders.
