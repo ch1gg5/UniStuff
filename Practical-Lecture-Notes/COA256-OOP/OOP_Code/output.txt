@@ -1,0 +1,3 @@
+Employee [Name: Jordan, ID: 101, Job Type: PERMANENT]
+Employee [Name: Taylor, ID: 102, Job Type: CONTRACT]
+Employee [Name: Riley, ID: 104, Job Type: PERMANENT]
