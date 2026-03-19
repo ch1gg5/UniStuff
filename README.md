@@ -6,7 +6,7 @@
 
 *Organised notes, code snippets, coursework and resources — all in one place.*
 
-![Loughborough University](https://img.shields.io/badge/Loughborough%20University-4A154B?style=for-the-badge&logoColor=white)
+![Loughborough University](https://img.shields.io/badge/Loughborough%20University-31145f?style=for-the-badge&logoColor=white)
 ![Student Repo](https://img.shields.io/badge/Student%20Repo-University%20Work-C8A951?style=for-the-badge)
 
 </div>
