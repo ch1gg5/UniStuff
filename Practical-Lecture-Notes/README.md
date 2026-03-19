@@ -29,6 +29,7 @@ Practical-Lecture-Notes/
 
 | Module | Description |
 |--------|-------------|
+| [COA256-OOP](./COA256-OOP/) | Template / starter module showing the expected structure |
 | [Example-Module](./Example-Module/) | Template / starter module showing the expected structure |
 
 > Add a new row above as you add more module folders.
