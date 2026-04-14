@@ -10,6 +10,14 @@ public class Employee {
 	private int salary;
 	
 	public Employee(int employeeId, String name, LocalDate dateOFContract, int salary) {
+		if (employeeId < 0) {
+			throw new IllegalArgumentException("Employee ID must be a positive integer.");
+		}
+		//id also needs to be 3 digits long
+		if (employeeId < 100 || employeeId > 999) {
+			throw new IllegalArgumentException("Employee ID must be a 3 digit number.");
+		}
+		
 		this.EMPLOYEE_ID = employeeId;
 		this.name = name;
 		this.dateOFContract = dateOFContract;

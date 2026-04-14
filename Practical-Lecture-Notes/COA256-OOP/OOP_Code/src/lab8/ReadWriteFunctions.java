@@ -64,7 +64,7 @@ final class ReadWriteFunctions {
 			// If we need to append, then we should use true.
 			// When we don't pass the second parameter (false/true), by default it would be false.
 			for(Employee emp : employees){
-				bw.write(emp.toString() + "\n");
+				bw.write(emp.getEmployeeId() + ", " + emp.getName() + ", " + emp.getDateOFContract() + ", " + emp.getSalary() + "\n");
 			}
 			
 			bw.close();
