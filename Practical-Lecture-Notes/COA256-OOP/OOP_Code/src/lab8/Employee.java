@@ -40,7 +40,7 @@ public class Employee {
 	//set date being passed as a string in the format of "DD-MM-YYYY"
 	public void setDateOFContract(String date) {
 		String[] dateParts = date.split("-");
-		int day = Integer.parseInt(dateParts[0]);
+		int day = Integer.parseInt(dateParts[0].trim());
 		int month = Integer.parseInt(dateParts[1]);
 		int year = Integer.parseInt(dateParts[2]);
 		this.dateOFContract = LocalDate.of(year, month, day);

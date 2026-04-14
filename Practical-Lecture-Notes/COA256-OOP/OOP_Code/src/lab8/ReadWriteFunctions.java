@@ -32,8 +32,14 @@ final class ReadWriteFunctions {
 				String[] data = line.split(",");
 				int employeeId = Integer.parseInt(data[0]);
 				String name = data[1];
-				LocalDate dateOfContract = LocalDate.parse(data[2]);
-				int salary = Integer.parseInt(data[3]);
+				
+				String[] dateParts = (data[2].split("-"));
+				int day = Integer.parseInt(dateParts[0].trim());
+				int month = Integer.parseInt(dateParts[1]);
+				int year = Integer.parseInt(dateParts[2]);
+				LocalDate dateOfContract = LocalDate.of(year, month, day);
+				
+				int salary = Integer.parseInt(data[3].trim());
 				employees[index] = new Employee(employeeId, name, dateOfContract, salary);
 				index++;
 			}
