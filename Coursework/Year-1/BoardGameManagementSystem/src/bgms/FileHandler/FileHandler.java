@@ -20,7 +20,7 @@ public class FileHandler {
 		    String line;
 		    while ((line = br.readLine()) != null) 
 		    {
-		        String[] values = line.split(";");
+		    	String[] values = line.split("; ");
 		        rows.add(values);
 		    }
 		    
@@ -46,7 +46,7 @@ public class FileHandler {
 		{
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true)); //its true so that it will append to the file instead of overwriting it
 			bw.newLine();
-			bw.write(String.join(";", row));
+			bw.write(String.join("; ", row));
 			bw.close();
 			
 		} catch (IOException e) 
@@ -66,11 +66,11 @@ public class FileHandler {
 		    //read the file line by line and replace the line that matches oldRow with newRow, then store all lines in a list
 		    while ((line = br.readLine()) != null) 
 		    {
-		        if (line.equals(String.join(";", oldRow))) 
+		        if (line.equals(String.join("; ", oldRow))) 
 		        {
 		        	if (newRow != null)
 		        	{
-		        		lines.add(String.join(";", newRow));
+		        		lines.add(String.join("; ", newRow));
 		        	} else 
 		        	{
 		        		//if newRow is null, it means we want to delete the line, so we just skip adding it to the list

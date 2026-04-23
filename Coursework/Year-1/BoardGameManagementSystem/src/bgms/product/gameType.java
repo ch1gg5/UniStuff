@@ -2,8 +2,8 @@ package bgms.product;
 
 public enum gameType {
 	
-	STRATEGY("Strategy"),
-	PARTY("Party");
+	STRATEGY("strategy"),
+	PARTY("party");
 	
 	private String type;
 	

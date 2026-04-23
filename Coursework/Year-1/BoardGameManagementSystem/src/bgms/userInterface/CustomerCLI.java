@@ -1,9 +1,10 @@
 package bgms.userInterface;
 import java.util.Scanner;
+import bgms.user.Customer;
 
 public class CustomerCLI {
 
-    public static void run(Scanner consoleInput) {
+    public static void run(Scanner consoleInput, Customer customer) {
 
         System.out.println("CUSTOMER VIEW");
         printCustomerMenu();
