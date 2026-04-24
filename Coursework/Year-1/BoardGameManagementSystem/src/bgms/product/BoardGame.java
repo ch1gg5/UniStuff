@@ -43,15 +43,15 @@ public class BoardGame extends Product {
 	@Override
 	public String toString(boolean isAdmin) {
 		if (isAdmin) {
-			return String.format("ID: %6s | Name: %30s | Price: £%6.2f | Type: %20s | %-15s: %20d | Purchase Cost: %6.2f", getProductId(), getName(), getPrice(), getGameType().toString(), "Max Players", getMaxPlayers(), getPurchaseCost());
+			return String.format("ID: %6s | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20d | Purchase Cost: %6.2f", getProductId(), getName(), getPrice(), getStock(), getGameType().toString(), "Max Players", getMaxPlayers(), getPurchaseCost());
 		} else {
-			return String.format("ID: %6s | Name: %30s | Price: £%6.2f | Type: %20s | %-15s: %20d", getProductId(), getName(), getPrice(), getGameType().toString(), "Max Players", getMaxPlayers());
+			return String.format("ID: %6s | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20d", getProductId(), getName(), getPrice(), getStock(), getGameType().toString(), "Max Players", getMaxPlayers());
 		}
 	}
 	
 	public String[] getAttributesAsArray()
 	{
-		return new String[] {getProductId(), "board game", getGameType().toString(), getName(), String.valueOf(getPrice()), String.valueOf(getStock()), String.valueOf(getPurchaseCost()), String.valueOf(getMaxPlayers())};
+		return new String[] {getProductId(), "board game", getGameType().toString(), getName(), String.format("%.2f", getPrice()), String.valueOf(getStock()), String.format("%.2f", getPurchaseCost()), String.valueOf(getMaxPlayers())};
 	}
 	
 	

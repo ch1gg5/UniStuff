@@ -54,19 +54,26 @@ public class StockManager
 	
 	public void increaseProductStock(Product product, int amount) 
 	{
+		//Find the product in the stock list to ensure we have the correct reference and state
+		Product stockProduct = findById(product.getProductId());
+		if (stockProduct == null) return; //product not found in stock
+		
+		//Store the original state before modification
+		String[] originalAttributes = stockProduct.getAttributesAsArray();
+		
 		//clone the product and update the stock of the clone, then replace the line in the file with the updated clone
-		if(product instanceof BoardGame) 
+		if(stockProduct instanceof BoardGame) 
 		{
-			BoardGame updatedProduct = new BoardGame(product.getProductId(), product.getName(), product.getPrice(), product.getPurchaseCost(), product.getStock() + amount, ((BoardGame) product).getGameType().toString(), ((BoardGame) product).getMaxPlayers());
-			stock.remove(product);
+			BoardGame updatedProduct = new BoardGame(stockProduct.getProductId(), stockProduct.getName(), stockProduct.getPrice(), stockProduct.getPurchaseCost(), stockProduct.getStock() + amount, ((BoardGame) stockProduct).getGameType().toString(), ((BoardGame) stockProduct).getMaxPlayers());
+			stock.remove(stockProduct);
 			stock.add(updatedProduct);
-			fileHandler.replaceLine("Stock.txt", product.getAttributesAsArray(), updatedProduct.getAttributesAsArray());
-		} else if (product instanceof Accessory) 
+			fileHandler.replaceLine("Stock.txt", originalAttributes, updatedProduct.getAttributesAsArray());
+		} else if (stockProduct instanceof Accessory) 
 		{
-			Accessory updatedProduct = new Accessory(product.getProductId(), product.getName(), product.getPrice(), product.getPurchaseCost(), product.getStock() + amount, ((Accessory) product).getAccessoryType().toString(), ((Accessory) product).getCompatibility());
-			stock.remove(product);
+			Accessory updatedProduct = new Accessory(stockProduct.getProductId(), stockProduct.getName(), stockProduct.getPrice(), stockProduct.getPurchaseCost(), stockProduct.getStock() + amount, ((Accessory) stockProduct).getAccessoryType().toString(), ((Accessory) stockProduct).getCompatibility());
+			stock.remove(stockProduct);
 			stock.add(updatedProduct);
-			fileHandler.replaceLine("Stock.txt", product.getAttributesAsArray(), updatedProduct.getAttributesAsArray());
+			fileHandler.replaceLine("Stock.txt", originalAttributes, updatedProduct.getAttributesAsArray());
 		}
 		
 	}
@@ -81,6 +88,18 @@ public class StockManager
 			}
 		}
 		return null; // Return null if no product with the given ID is found
+	}
+	
+	public Product findByName(String name) 
+	{
+		for (Product product : stock) 
+		{
+			if (product.getName().equalsIgnoreCase(name)) 
+			{
+				return product;
+			}
+		}
+		return null; // Return null if no product with the given name is found
 	}
 	
 	public List<Product> getAllSortedByPrice() 

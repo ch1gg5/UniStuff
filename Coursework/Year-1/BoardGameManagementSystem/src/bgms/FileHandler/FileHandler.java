@@ -21,6 +21,10 @@ public class FileHandler {
 		    while ((line = br.readLine()) != null) 
 		    {
 		    	String[] values = line.split("; ");
+		    	//trim each value to remove leading/trailing whitespace
+		    	for (int i = 0; i < values.length; i++) {
+		    		values[i] = values[i].trim();
+		    	}
 		        rows.add(values);
 		    }
 		    
@@ -62,18 +66,40 @@ public class FileHandler {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 		    String line;
 		    List<String> lines = new ArrayList<>();
+		    boolean found = false;
 		    
 		    //read the file line by line and replace the line that matches oldRow with newRow, then store all lines in a list
 		    while ((line = br.readLine()) != null) 
 		    {
-		        if (line.equals(String.join("; ", oldRow))) 
+		    	//split the line and trim each value for comparison
+		    	String[] lineValues = line.split("; ");
+		    	for (int i = 0; i < lineValues.length; i++) {
+		    		lineValues[i] = lineValues[i].trim();
+		    	}
+		    	
+		    	//compare arrays instead of strings
+		    	boolean isMatch = true;
+		    	if (lineValues.length == oldRow.length) {
+		    		for (int i = 0; i < lineValues.length; i++) {
+		    			if (!lineValues[i].equals(oldRow[i])) {
+		    				isMatch = false;
+		    				break;
+		    			}
+		    		}
+		    	} else {
+		    		isMatch = false;
+		    	}
+		    	
+		        if (isMatch) 
 		        {
 		        	if (newRow != null)
 		        	{
 		        		lines.add(String.join("; ", newRow));
+		        		found = true;
 		        	} else 
 		        	{
 		        		//if newRow is null, it means we want to delete the line, so we just skip adding it to the list
+		        		found = true;
 		        	}
 		            
 		        } else 
@@ -85,10 +111,12 @@ public class FileHandler {
 		    
 		    //write the modified lines back to the file
 		    BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-		    for (String l : lines) 
+		    for (int i = 0; i < lines.size(); i++) 
 		    {
-		        bw.write(l);
-		        bw.newLine();
+		        bw.write(lines.get(i));
+		        if (i < lines.size() - 1) {
+		            bw.newLine();
+		        }
 		    }
 		    bw.close();
 			

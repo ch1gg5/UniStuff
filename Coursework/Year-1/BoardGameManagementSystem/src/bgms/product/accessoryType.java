@@ -2,9 +2,9 @@ package bgms.product;
 
 public enum accessoryType {
 	
-	DICE("Dice"),
-	MINIATURE("Miniature"),
-	KIT("Accessory Kit");
+	DICE("dice"),
+	MINIATURE("miniature"),
+	KIT("accessory kit");
 	
 	private String type;
 	

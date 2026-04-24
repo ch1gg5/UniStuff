@@ -4,12 +4,15 @@ public class Customer extends User
 {
 	private ShoppingBasket shoppingBasket;
 	
-	public Customer(int userId, String name, Address address) {
+	public Customer(int userId, String name, Address address) 
+	{
 		super(userId, name, address);
 		this.shoppingBasket = new ShoppingBasket();
 	}
 	
-	public ShoppingBasket getShoppingBasket() {
+	
+	public ShoppingBasket getShoppingBasket() 
+	{
 		return shoppingBasket;
 	}
 
