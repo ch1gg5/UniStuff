@@ -50,7 +50,7 @@ public class Main {
             		break;
             		
             	case 2:
-            		CustomerCLI.run(consoleInput, (Customer) selectedUser);
+            		CustomerCLI.run(consoleInput, stockManager, (Customer) selectedUser);
             		break;
             }
         }
