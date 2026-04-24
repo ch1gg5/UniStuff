@@ -3,6 +3,7 @@ import java.util.Map;
 import java.util.Scanner;
 import bgms.user.Customer;
 import bgms.product.*;
+import bgms.payment.*;
 
 public class CustomerCLI 
 {
@@ -111,6 +112,69 @@ public class CustomerCLI
 				return "Invalid selection";
 		}
 	}
+	
+	private static void viewShoppingBasket(Customer customer)
+	{
+		customer.getShoppingBasket().printBasketContents();
+		return;
+	}
+	
+	private static String lookupProductById(Scanner consoleInput, StockManager stockManager)
+	{
+		System.out.println("Input product ID:");
+		String productId = consoleInput.nextLine().trim();
+		Product productById = stockManager.findById(productId);
+		if (productById != null) 
+		{	
+			return productById.toString(false);
+			
+		} else 
+		{
+			return "Product ID not found: " + productId;
+		}
+	}
+	
+	private static String purchaseItemsInBasket(Scanner consoleInput, Customer customer)
+	{
+		viewShoppingBasket(customer);
+		double totalPrice = customer.getShoppingBasket().getTotalPrice();
+		Receipt receipt;
+		
+		System.out.println("Would you like to proceed with the purchase? (yes/no)");
+		String szInput = consoleInput.nextLine().trim();
+		if (szInput.equalsIgnoreCase("yes"))
+		{
+			System.out.println("Paypal or Credit Card? (paypal/credit)");
+			szInput = consoleInput.nextLine().trim();
+			
+			//use the payment package
+			if (szInput.equalsIgnoreCase("paypal"))
+			{
+				PayPalPaymentMethod paypalPayment = new PayPalPaymentMethod();
+				receipt = paypalPayment.processPayment(totalPrice, customer.getAddress());
+				receipt.printReceipt();
+				customer.getShoppingBasket().clearBasket();
+				return "Success";
+				
+			} else if (szInput.equalsIgnoreCase("credit"))
+			{
+				//same for credit card payment
+				CreditCardPayment creditCardPayment = new CreditCardPayment();
+				receipt = creditCardPayment.processPayment(totalPrice, customer.getAddress());
+				receipt.printReceipt();
+				customer.getShoppingBasket().clearBasket();
+				return "Success";
+				
+			} else 
+			{
+				return "Invalid payment method selected. Purchase cancelled.";
+			}
+			
+		} else 
+		{
+			return "Purchase cancelled.";
+		}
+	}
 
     public static void run(Scanner consoleInput, StockManager stockManager, Customer customer) 
     {
@@ -140,9 +204,22 @@ public class CustomerCLI
 					}
 					System.out.println();
 					break;
+				case 3:
+					viewShoppingBasket(customer);
+					System.out.println();
+					break;
+				case 4:
+					purchaseItemsInBasket(consoleInput, customer);
+					System.out.println();
+					break;
 				case 5:
 					System.out.println(cancelShoppingBasket(customer, stockManager));
 					System.out.println();
+					break;
+				case 6:
+					System.out.println(lookupProductById(consoleInput, stockManager));
+					System.out.println();
+					
 					break;
 				case 0:
 					//before logging out, clear the shopping basket and return the items to stock

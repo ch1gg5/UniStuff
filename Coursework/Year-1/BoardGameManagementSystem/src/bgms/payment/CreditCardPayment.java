@@ -34,7 +34,7 @@ public class CreditCardPayment implements PaymentMethod {
 			}
 		}
 		
-		szInput.close();
+		
 		
 		
 		String message = String.format("%.2f paid via Credit Card %s on %s. Billing Address: %s.", total, szCardNumber, szDate, address.toString());
