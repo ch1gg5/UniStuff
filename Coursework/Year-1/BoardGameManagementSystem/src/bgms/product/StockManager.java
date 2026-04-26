@@ -102,6 +102,23 @@ public class StockManager
 		return null; // Return null if no product with the given name is found
 	}
 	
+	public List<Accessory> findByCompatibility(String compatibility) 
+	{
+		List<Accessory> compatibleProducts = new ArrayList<>();
+		for (Product product : stock) 
+		{
+			if (product instanceof Accessory) 
+			{
+				Accessory accessory = (Accessory) product;
+				if (accessory.getCompatibility().equalsIgnoreCase(compatibility)) 
+				{
+					compatibleProducts.add(accessory);
+				}
+			}
+		}
+		return compatibleProducts;
+	}
+	
 	public List<Product> getAllSortedByPrice() 
 	{
 		List<Product> sortedStock = new ArrayList<>(stock);

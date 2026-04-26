@@ -1,4 +1,5 @@
 package bgms.userInterface;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import bgms.user.Customer;
@@ -175,6 +176,23 @@ public class CustomerCLI
 			return "Purchase cancelled.";
 		}
 	}
+	
+	private static void filterByCompatibility(Scanner consoleInput, StockManager stockManager)
+	{
+		System.out.println("Input compatibility to search for:");
+		String compatibility = consoleInput.nextLine().trim();
+		List<Accessory> compatibleProducts = stockManager.findByCompatibility(compatibility);
+		if (compatibleProducts.isEmpty()) 
+		{
+			System.out.println("No products found with that compatibility.");
+		} else 
+		{
+			for (Accessory accessory : compatibleProducts) 
+			{
+				System.out.println(accessory.toString(false));
+			}
+		}
+	}
 
     public static void run(Scanner consoleInput, StockManager stockManager, Customer customer) 
     {
@@ -220,6 +238,10 @@ public class CustomerCLI
 					System.out.println(lookupProductById(consoleInput, stockManager));
 					System.out.println();
 					
+					break;
+				case 7:
+					filterByCompatibility(consoleInput, stockManager);
+					System.out.println();
 					break;
 				case 0:
 					//before logging out, clear the shopping basket and return the items to stock
