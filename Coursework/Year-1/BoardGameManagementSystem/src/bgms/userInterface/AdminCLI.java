@@ -6,12 +6,12 @@ import bgms.user.Admin;
 public class AdminCLI {
 	public final static String NOT_IMPLEMENTED = "Not implemented";
 	public final static String INVALID = "Invalid input";
-	public final static String[] PARAMETER_NAMES = {"product ID", "category (board game or accessory)", 
+	public final static String[] PARAMETER_NAMES = {"product ID (Must be an Integer)", "category (board game or accessory)", 
 			"type (strategy or party if board game) (Accessory Kit, Miniature or Dice if accessory)", 
 			"name", "price", "stock quantity", "purchase cost", "Max players (if board game) or compatibility (if accessory)"};
 	
 	
-	private static String addProduct(Scanner consoleInput, StockManager stockManager, Admin admin) {
+	private static void addProduct(Scanner consoleInput, StockManager stockManager, Admin admin) {
 		//The order of the input should follow the order appearing in the Stock.txt file
 		//read data one entry at a time.
 		int i = 0;
@@ -22,45 +22,70 @@ public class AdminCLI {
 			i++;
 		}
 		
-		if (szAttributes[1].equalsIgnoreCase("board game")) 
+		String category = szAttributes[1];
+		String type = szAttributes[2];
+		String name = szAttributes[3];
+		
+		if (category.equalsIgnoreCase("board game")) 
 		{
 			//validate the input for board game
 			try {
-				Integer.parseInt(szAttributes[5]);
-				Double.parseDouble(szAttributes[4]);
-				Double.parseDouble(szAttributes[6]);
-				Integer.parseInt(szAttributes[7]);
-				if (!szAttributes[2].equalsIgnoreCase("Strategy") && !szAttributes[2].equalsIgnoreCase("Party")) 
+				int productId = Integer.parseInt(szAttributes[0]);
+				
+				int quantity = Integer.parseInt(szAttributes[5]);
+				double price = Double.parseDouble(szAttributes[4]);
+				double purchaseCost = Double.parseDouble(szAttributes[6]);
+				int maxPlayers = Integer.parseInt(szAttributes[7]);
+				if (!type.equalsIgnoreCase("Strategy") && !type.equalsIgnoreCase("Party")) 
 				{
-					return "Invalid game type: " + szAttributes[2];
+					System.err.println("Invalid input: Type must be either Strategy or Party for board games");
 				} else 
 				{
 					//valid input, create a new board game and add it to the stock manager
-					BoardGame newBoardGame = new BoardGame(szAttributes[0], szAttributes[3], Double.parseDouble(szAttributes[4]), Double.parseDouble(szAttributes[6]), 
-							Integer.parseInt(szAttributes[5]), szAttributes[2], Integer.parseInt(szAttributes[7]));
+					BoardGame newBoardGame = new BoardGame(productId, name, price, purchaseCost, quantity, type, maxPlayers);
 					admin.addProductToStock(newBoardGame, stockManager);
 					
 
-					return "Board game added successfully";
+					System.out.println("Board game added successfully: " + newBoardGame.getName());
 				}
 			} catch (NumberFormatException e) 
 			{
-				return "Invalid input: " + e.getMessage();
+				System.err.println("Invalid input: " + e.getMessage());
 			}
 		} else if (szAttributes[1].equalsIgnoreCase("accessory")) 
 		{
 			//validate the input for accessory
 			try {
-				Integer.parseInt(szAttributes[5]);
-				Double.parseDouble(szAttributes[4]);
-				Double.parseDouble(szAttributes[6]);
+				int productId = Integer.parseInt(szAttributes[0]);
+				
+				int quantity = Integer.parseInt(szAttributes[5]);
+				double price = Double.parseDouble(szAttributes[4]);
+				double purchaseCost = Double.parseDouble(szAttributes[6]);
+				String compatibility = szAttributes[7];
+				
+				if (!type.equalsIgnoreCase("Kit") && !type.equalsIgnoreCase("Miniature") && !type.equalsIgnoreCase("Dice")) 
+				{
+					System.err.println("Invalid input: Type must be either Kit, Miniature or Dice for accessories");
+				} else 
+				{
+					//valid input, create a new accessory and add it to the stock manager
+					Accessory newAccessory = new Accessory(productId, name, price, purchaseCost, quantity, type, compatibility);
+					admin.addProductToStock(newAccessory, stockManager);
+					
+
+					System.out.println("Accessory added successfully: " + newAccessory.getName());
+				}
+				
+				
 			} catch (NumberFormatException e) {
-				return "Invalid input: " + e.getMessage();
+				System.err.println("Invalid input: " + e.getMessage());
 			}
-		} 
+		} else 
+		{
+			System.err.println("Invalid category: " + category);
+		}
 		
-		
-		return "Invalid category: " + szAttributes[1];
+	
 		
 	}
 
@@ -71,7 +96,15 @@ public class AdminCLI {
         while (true) {
         	printAdminMenu();
         	
-        	int selection = Integer.parseInt(consoleInput.nextLine().trim());
+        	//throw exception if the input is not an integer
+        	int selection;
+        	try {
+        		selection = Integer.parseInt(consoleInput.nextLine().trim());
+			} catch (NumberFormatException e) {
+				System.out.println(INVALID);
+				System.out.println();
+				continue;
+        	}
         	
         	switch (selection) {
         		case 1:
@@ -91,7 +124,7 @@ public class AdminCLI {
         			return;
         			
         		default:
-        			System.out.println(INVALID);
+        			System.out.println("Invalid Number. Please try again.");
         			System.out.println();
         	}
         }

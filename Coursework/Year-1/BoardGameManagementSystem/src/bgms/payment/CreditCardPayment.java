@@ -5,12 +5,14 @@ import java.util.Scanner;
 
 import bgms.user.Address;
 
-public class CreditCardPayment implements PaymentMethod {
+public class CreditCardPayment implements PaymentMethod 
+{
+	Scanner szInput = new Scanner(System.in);
 
 	@Override
 	public Receipt processPayment(double total, Address address) {
 		
-		Scanner szInput = new Scanner(System.in);
+		
 		String szCardNumber;
 		String szSecurityCode;
 		System.out.println("CREDIT CARD PAYMENT METHOD");
@@ -21,9 +23,9 @@ public class CreditCardPayment implements PaymentMethod {
 		
 		//Credit card number should be 6 digits and security code should be 3 digits
 		while(true) {
-			System.out.println("PLEASE ENTER YOUR CREDIT CARD NUMBER");
+			System.out.println("PLEASE ENTER YOUR CREDIT CARD NUMBER (6 DIGITS)");
 			szCardNumber = szInput.nextLine();
-			System.out.println("PLEASE ENTER YOUR SECURITY CODE");
+			System.out.println("PLEASE ENTER YOUR SECURITY CODE (3 DIGITS)");
 			szSecurityCode = szInput.nextLine();
 			
 			if (szCardNumber.length() != 6 || szSecurityCode.length() != 3) {

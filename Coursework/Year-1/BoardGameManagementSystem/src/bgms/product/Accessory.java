@@ -5,7 +5,7 @@ public class Accessory extends Product {
 	private String compatibility;
 	private accessoryType type;
 	
-	public Accessory(String productId, String name, double price, double purchaseCost, int stock, String type, String compatibility) {
+	public Accessory(int productId, String name, double price, double purchaseCost, int stock, String type, String compatibility) {
 		super(productId, name, price, purchaseCost, stock);
 		this.compatibility = compatibility;
 		setAccessoryType(type);
@@ -44,15 +44,15 @@ public class Accessory extends Product {
 	@Override
 	public String toString(boolean isAdmin) {
 		if (isAdmin) {
-			return String.format("ID: %6s | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20s | Purchase Cost: %6.2f", getProductId(), getName(), getPrice(), getStock(), getAccessoryType().toString(), "Compatibility", getCompatibility(), getPurchaseCost());
+			return String.format("ID: %6d | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20s | Purchase Cost: %6.2f", getProductId(), getName(), getPrice(), getStock(), getAccessoryType().toString(), "Compatibility", getCompatibility(), getPurchaseCost());
 		} else {
-			return String.format("ID: %6s | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20s", getProductId(), getName(), getPrice(), getStock(), getAccessoryType().toString(), "Compatibility", getCompatibility());
+			return String.format("ID: %6d | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20s", getProductId(), getName(), getPrice(), getStock(), getAccessoryType().toString(), "Compatibility", getCompatibility());
 		}
 	}
 	
 	public String[] getAttributesAsArray()
 	{
-		return new String[] {getProductId(), "accessory", getAccessoryType().toString(), getName(), String.format("%.2f", getPrice()), String.valueOf(getStock()), String.format("%.2f", getPurchaseCost()), getCompatibility()};
+		return new String[] {String.valueOf(getProductId()), "accessory", getAccessoryType().toString(), getName(), String.format("%.2f", getPrice()), String.valueOf(getStock()), String.format("%.2f", getPurchaseCost()), getCompatibility()};
 	}
 	
 

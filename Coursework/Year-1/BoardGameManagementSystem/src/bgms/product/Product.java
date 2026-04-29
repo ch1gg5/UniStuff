@@ -1,13 +1,13 @@
 package bgms.product;
 
 public abstract class Product {
-	private String productId;
+	private int productId;
 	private String name;
 	private double price;
 	private double purchaseCost;
 	private int stock;
 	
-	public Product(String productId, String name, double price, double purchaseCost, int stock) {
+	public Product(int productId, String name, double price, double purchaseCost, int stock) {
 		this.productId = productId;
 		this.name = name;
 		this.price = price;
@@ -16,7 +16,7 @@ public abstract class Product {
 	}
 	
 	//Setters
-	public void setProductId(String productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 	
@@ -41,7 +41,7 @@ public abstract class Product {
 	}
 	
 	//Getters
-	public String getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 	

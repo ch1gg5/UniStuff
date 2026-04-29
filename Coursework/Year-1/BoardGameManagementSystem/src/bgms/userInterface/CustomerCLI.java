@@ -32,14 +32,12 @@ public class CustomerCLI
 		{
 			case 1:
 				System.out.println("Input product ID:");
-				String productId = consoleInput.nextLine().trim();
+				int productId = Integer.parseInt(consoleInput.nextLine().trim());
 				product = stockManager.findById(productId);
 				
 				//throw error if the product ID is invalid 
 				try 
 				{
-					
-					product = stockManager.findById(productId);
 					
 					if (product == null) 
 					{
@@ -123,7 +121,7 @@ public class CustomerCLI
 	private static String lookupProductById(Scanner consoleInput, StockManager stockManager)
 	{
 		System.out.println("Input product ID:");
-		String productId = consoleInput.nextLine().trim();
+		int productId = Integer.parseInt(consoleInput.nextLine().trim());
 		Product productById = stockManager.findById(productId);
 		if (productById != null) 
 		{	
@@ -202,7 +200,16 @@ public class CustomerCLI
         while (true) 
         {
 	        printCustomerMenu(customer);
-	        int selection = Integer.parseInt(consoleInput.nextLine().trim());
+	        
+	        //throw exception if the input is not an integer
+        	int selection;
+        	try {
+        		selection = Integer.parseInt(consoleInput.nextLine().trim());
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid input");
+				System.out.println();
+				continue;
+        	}
 	        
 	        switch (selection) 
 	        {
@@ -251,7 +258,9 @@ public class CustomerCLI
 					return;
 					
 				default:
-					//invalid input
+					System.out.println("Invalid number. Please try again.");
+					System.out.println();
+					break;
 	        }
 	        
         

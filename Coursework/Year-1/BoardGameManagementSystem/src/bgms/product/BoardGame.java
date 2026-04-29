@@ -5,7 +5,7 @@ public class BoardGame extends Product {
 	private int maxPlayers;
 	private gameType type;
 	
-	public BoardGame(String productId, String name, double price, double purchaseCost, int stock, String type, int maxPlayers) {
+	public BoardGame(int productId, String name, double price, double purchaseCost, int stock, String type, int maxPlayers) {
 		super(productId, name, price, purchaseCost, stock);
 		this.maxPlayers = maxPlayers;
 		setGameType(type);
@@ -43,15 +43,15 @@ public class BoardGame extends Product {
 	@Override
 	public String toString(boolean isAdmin) {
 		if (isAdmin) {
-			return String.format("ID: %6s | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20d | Purchase Cost: %6.2f", getProductId(), getName(), getPrice(), getStock(), getGameType().toString(), "Max Players", getMaxPlayers(), getPurchaseCost());
+			return String.format("ID: %6d | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20d | Purchase Cost: %6.2f", getProductId(), getName(), getPrice(), getStock(), getGameType().toString(), "Max Players", getMaxPlayers(), getPurchaseCost());
 		} else {
-			return String.format("ID: %6s | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20d", getProductId(), getName(), getPrice(), getStock(), getGameType().toString(), "Max Players", getMaxPlayers());
+			return String.format("ID: %6d | Name: %30s | Price: £%6.2f | Stock: %6d | Type: %20s | %-15s: %20d", getProductId(), getName(), getPrice(), getStock(), getGameType().toString(), "Max Players", getMaxPlayers());
 		}
 	}
 	
 	public String[] getAttributesAsArray()
 	{
-		return new String[] {getProductId(), "board game", getGameType().toString(), getName(), String.format("%.2f", getPrice()), String.valueOf(getStock()), String.format("%.2f", getPurchaseCost()), String.valueOf(getMaxPlayers())};
+		return new String[] {String.valueOf(getProductId()), "board game", getGameType().toString(), getName(), String.format("%.2f", getPrice()), String.valueOf(getStock()), String.format("%.2f", getPurchaseCost()), String.valueOf(getMaxPlayers())};
 	}
 	
 	

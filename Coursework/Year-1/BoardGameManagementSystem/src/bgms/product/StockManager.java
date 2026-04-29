@@ -22,7 +22,7 @@ public class StockManager
 		String[][] data = fileHandler.readFile("Stock.txt");
 		for( String[] row : data)
 		{
-			String productId = row[0];
+			int productId = Integer.parseInt(row[0]);
 			String category = row[1].trim();
 	        String type = row[2].trim();
 	        String name = row[3].trim();
@@ -78,11 +78,11 @@ public class StockManager
 		
 	}
 	
-	public Product findById(String productId) 
+	public Product findById(int productId) 
 	{
 		for (Product product : stock) 
 		{
-			if (product.getProductId().equals(productId)) 
+			if (product.getProductId() == productId) 
 			{
 				return product;
 			}
@@ -121,8 +121,23 @@ public class StockManager
 	
 	public List<Product> getAllSortedByPrice() 
 	{
+		//sort the stock by price in descending order and return the sorted list
 		List<Product> sortedStock = new ArrayList<>(stock);
-		sortedStock.sort((p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice())); //using lambda to sort the stock
+		for (int i = 0; i < sortedStock.size() - 1; i++) 
+		{
+			for (int j = 0; j < sortedStock.size() - i - 1; j++) 
+			{
+				if (sortedStock.get(j).getPrice() < sortedStock.get(j + 1).getPrice()) 
+				{
+					//swap the products
+					Product temp = sortedStock.get(j);
+					sortedStock.set(j, sortedStock.get(j + 1));
+					sortedStock.set(j + 1, temp);
+				}
+			}
+		}
+		
+		
 		return sortedStock;
 	}
 	
@@ -150,11 +165,21 @@ public class StockManager
 	//display stock
 	public void displayStock(boolean isAdmin)
 	{
+		List<Product> stock = new ArrayList<>(this.stock);
+		
+		if (isAdmin) 
+		{
+			stock = getAllSortedByPrice();
+		}
+		
 		for (Product product : stock) 
 		{
 			System.out.println(product.toString(isAdmin));
 		}
+		
+		
 	}
+	
 	
 	
 

@@ -5,12 +5,14 @@ import java.util.Scanner;
 
 import bgms.user.Address;
 
-public class PayPalPaymentMethod implements PaymentMethod {
+public class PayPalPaymentMethod implements PaymentMethod 
+{
+	Scanner szInput = new Scanner(System.in);
 
 	@Override
 	public Receipt processPayment(double total, Address address) {
 		
-		Scanner szInput = new Scanner(System.in);
+		
 		String szEmail;
 		System.out.println("PAYPAL PAYMENT METHOD");
 		
@@ -32,7 +34,6 @@ public class PayPalPaymentMethod implements PaymentMethod {
 			}
 		}
 		
-		szInput.close();
 		
 		
 		String message = String.format("%.2f paid via PayPal using %s on %s. Billing Address: %s.", total, szEmail, szDate, address.toString());
