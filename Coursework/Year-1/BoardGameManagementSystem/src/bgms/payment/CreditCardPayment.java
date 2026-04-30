@@ -29,7 +29,7 @@ public class CreditCardPayment implements PaymentMethod
 			szSecurityCode = szInput.nextLine();
 			
 			if (szCardNumber.length() != 6 || szSecurityCode.length() != 3) {
-				System.out.println("INVALID CREDIT CARD NUMBER");
+				System.err.println("INVALID CREDIT CARD NUMBER");
 			}
 			else {
 				break;

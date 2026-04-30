@@ -76,6 +76,11 @@ public class ShoppingBasket
 		}
 	}
 	
+	public boolean isEmpty() 
+	{
+		return items.isEmpty();
+	}
+	
 	
 
 	public static void main(String[] args) 

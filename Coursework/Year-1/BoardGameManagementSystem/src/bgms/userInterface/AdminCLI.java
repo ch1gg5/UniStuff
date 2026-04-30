@@ -22,19 +22,31 @@ public class AdminCLI {
 			i++;
 		}
 		
+		int productId = Integer.parseInt(szAttributes[0]);
 		String category = szAttributes[1];
 		String type = szAttributes[2];
 		String name = szAttributes[3];
 		
-		if (category.equalsIgnoreCase("board game")) 
+		
+		//check if product id exists and if it is 4 digits
+		if(stockManager.findById(productId) != null) 
 		{
-			//validate the input for board game
-			try {
-				int productId = Integer.parseInt(szAttributes[0]);
-				
-				int quantity = Integer.parseInt(szAttributes[5]);
-				double price = Double.parseDouble(szAttributes[4]);
-				double purchaseCost = Double.parseDouble(szAttributes[6]);
+			System.err.println("Invalid input: Product ID already exists in stock");
+			return;
+		} 
+		else if (productId < 1000 || productId > 9999) 
+		{
+			System.err.println("Invalid input: Product ID must be a 4-digit integer");
+			return;
+		}
+		
+		try {
+			int quantity = Integer.parseInt(szAttributes[5]);
+			double price = Double.parseDouble(szAttributes[4]);
+			double purchaseCost = Double.parseDouble(szAttributes[6]);
+			
+			if (category.equalsIgnoreCase("board game")) 
+			{
 				int maxPlayers = Integer.parseInt(szAttributes[7]);
 				if (!type.equalsIgnoreCase("Strategy") && !type.equalsIgnoreCase("Party")) 
 				{
@@ -44,25 +56,11 @@ public class AdminCLI {
 					//valid input, create a new board game and add it to the stock manager
 					BoardGame newBoardGame = new BoardGame(productId, name, price, purchaseCost, quantity, type, maxPlayers);
 					admin.addProductToStock(newBoardGame, stockManager);
-					
-
 					System.out.println("Board game added successfully: " + newBoardGame.getName());
 				}
-			} catch (NumberFormatException e) 
+			} else if (category.equalsIgnoreCase("accessory")) 
 			{
-				System.err.println("Invalid input: " + e.getMessage());
-			}
-		} else if (szAttributes[1].equalsIgnoreCase("accessory")) 
-		{
-			//validate the input for accessory
-			try {
-				int productId = Integer.parseInt(szAttributes[0]);
-				
-				int quantity = Integer.parseInt(szAttributes[5]);
-				double price = Double.parseDouble(szAttributes[4]);
-				double purchaseCost = Double.parseDouble(szAttributes[6]);
 				String compatibility = szAttributes[7];
-				
 				if (!type.equalsIgnoreCase("Kit") && !type.equalsIgnoreCase("Miniature") && !type.equalsIgnoreCase("Dice")) 
 				{
 					System.err.println("Invalid input: Type must be either Kit, Miniature or Dice for accessories");
@@ -71,18 +69,14 @@ public class AdminCLI {
 					//valid input, create a new accessory and add it to the stock manager
 					Accessory newAccessory = new Accessory(productId, name, price, purchaseCost, quantity, type, compatibility);
 					admin.addProductToStock(newAccessory, stockManager);
-					
-
 					System.out.println("Accessory added successfully: " + newAccessory.getName());
 				}
-				
-				
-			} catch (NumberFormatException e) {
-				System.err.println("Invalid input: " + e.getMessage());
+			} else 
+			{
+				System.err.println("Invalid category: " + category);
 			}
-		} else 
-		{
-			System.err.println("Invalid category: " + category);
+		} catch (NumberFormatException e) {
+			System.err.println("Invalid input: " + e.getMessage());
 		}
 		
 	
@@ -101,7 +95,7 @@ public class AdminCLI {
         	try {
         		selection = Integer.parseInt(consoleInput.nextLine().trim());
 			} catch (NumberFormatException e) {
-				System.out.println(INVALID);
+				System.err.println(INVALID);
 				System.out.println();
 				continue;
         	}
@@ -124,7 +118,7 @@ public class AdminCLI {
         			return;
         			
         		default:
-        			System.out.println("Invalid Number. Please try again.");
+        			System.err.println("Invalid Number. Please try again.");
         			System.out.println();
         	}
         }

@@ -65,7 +65,7 @@ public class CustomerCLI
 					
 				} catch (IllegalArgumentException e) {
 					//print the exception message
-					System.out.println("Error: " + e.getMessage());
+					System.err.println("Error: " + e.getMessage());
 					
 					return null;
 				}
@@ -135,6 +135,12 @@ public class CustomerCLI
 	
 	private static String purchaseItemsInBasket(Scanner consoleInput, Customer customer)
 	{
+		if (customer.getShoppingBasket().getItems().isEmpty()) 
+		{
+			System.err.println("Your shopping basket is empty. Please add items to your basket before attempting to purchase.");
+			return "Failed";
+		}
+		
 		viewShoppingBasket(customer);
 		double totalPrice = customer.getShoppingBasket().getTotalPrice();
 		Receipt receipt;
@@ -182,7 +188,7 @@ public class CustomerCLI
 		List<Accessory> compatibleProducts = stockManager.findByCompatibility(compatibility);
 		if (compatibleProducts.isEmpty()) 
 		{
-			System.out.println("No products found with that compatibility.");
+			System.err.println("No products found with that compatibility.");
 		} else 
 		{
 			for (Accessory accessory : compatibleProducts) 
@@ -206,7 +212,7 @@ public class CustomerCLI
         	try {
         		selection = Integer.parseInt(consoleInput.nextLine().trim());
 			} catch (NumberFormatException e) {
-				System.out.println("Invalid input");
+				System.err.println("Invalid input");
 				System.out.println();
 				continue;
         	}
@@ -225,7 +231,7 @@ public class CustomerCLI
 						System.out.println(result);
 					} else 
 					{
-						System.out.println("Failed to add product to basket. Please check your input and try again.");
+						System.err.println("Failed to add product to basket. Please check your input and try again.");
 					}
 					System.out.println();
 					break;
@@ -258,7 +264,7 @@ public class CustomerCLI
 					return;
 					
 				default:
-					System.out.println("Invalid number. Please try again.");
+					System.err.println("Invalid number. Please try again.");
 					System.out.println();
 					break;
 	        }

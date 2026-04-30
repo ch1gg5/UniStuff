@@ -27,7 +27,7 @@ public class PayPalPaymentMethod implements PaymentMethod
 			szEmail = szInput.nextLine();
 			
 			if (!szEmail.contains("@") || !szEmail.contains(".")) {
-				System.out.println("INVALID EMAIL ADDRESS");
+				System.err.println("INVALID EMAIL ADDRESS");
 			}
 			else {
 				break;
