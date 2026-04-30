@@ -70,7 +70,8 @@ public class ShoppingBasket
 			for (Map.Entry<Product, Integer> entry : items.entrySet()) {
 				Product product = entry.getKey();
 				int quantity = entry.getValue();
-				System.out.println(product.getName() + " - Price: £" + product.getPrice() + " - Quantity: " + quantity + " - Subtotal: £" + (product.getPrice() * quantity));
+				System.out.printf("%s - Price: £%.2f - Quantity: %d - Subtotal: £%.2f%n", product.getName(), product.getPrice(), quantity, (product.getPrice() * quantity));
+				
 			}
 			System.out.println("Total Price: £" + getTotalPrice());
 		}
