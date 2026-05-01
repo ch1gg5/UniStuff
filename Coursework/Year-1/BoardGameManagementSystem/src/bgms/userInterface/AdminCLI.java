@@ -22,7 +22,14 @@ public class AdminCLI {
 			i++;
 		}
 		
-		int productId = Integer.parseInt(szAttributes[0]);
+		int productId;
+		try {
+			productId = Integer.parseInt(szAttributes[0]);
+		} catch (NumberFormatException e) {
+			System.err.println("Invalid input: Product ID must be an integer");
+			return;
+		}
+		
 		String category = szAttributes[1];
 		String type = szAttributes[2];
 		String name = szAttributes[3];

@@ -141,22 +141,6 @@ public class StockManager
 		return sortedStock;
 	}
 	
-	public List<Product> filterByCompatibility(String compatibility) 
-	{
-		List<Product> filteredStock = new ArrayList<>();
-		for (Product product : stock) {
-			if (product instanceof Accessory) 
-			{
-				Accessory accessory = (Accessory) product;
-				if (accessory.getCompatibility().equalsIgnoreCase(compatibility)) 
-				{
-					filteredStock.add(accessory);
-				}
-			}
-		}
-		return filteredStock;
-	}
-	
 	
 	public List<Product> getStock() {
 		return stock;

@@ -27,88 +27,63 @@ public class CustomerCLI
 		Product product = null;
 		//ask if its adding by product ID or by name
 		System.out.println("Add to basket by: 1) Product ID or 2) Product name");
-		int selection = Integer.parseInt(consoleInput.nextLine().trim());
-		switch (selection) 
+		
+		try 
 		{
-			case 1:
-				System.out.println("Input product ID:");
-				int productId = Integer.parseInt(consoleInput.nextLine().trim());
-				product = stockManager.findById(productId);
-				
-				//throw error if the product ID is invalid 
-				try 
-				{
+			int selection = Integer.parseInt(consoleInput.nextLine().trim());
+			switch (selection) 
+			{
+				case 1:
+					System.out.println("Input product ID:");
+					int productId = Integer.parseInt(consoleInput.nextLine().trim());
+					product = stockManager.findById(productId);
 					
 					if (product == null) 
 					{
 						throw new IllegalArgumentException("Product ID not found: " + productId);
 					}
-					
-					//now ask for the quantity and validate that input as well
-					System.out.println("Input quantity:");
-					int quantity = Integer.parseInt(consoleInput.nextLine().trim());
-					
-					if (quantity <= 0) 
-					{
-						throw new IllegalArgumentException("Quantity must be a positive integer");
-					} else if (quantity > product.getStock()) 
-					{
-						throw new IllegalArgumentException("Quantity exceeds available stock. Available stock: " + product.getStock());
-					} else 
-					{
-						//valid input, add the product to the shopping basket with the specified quantity
-						customer.getShoppingBasket().addItem(product, quantity);
-						//decrease the stock of the product in the stock manager
-						stockManager.increaseProductStock(product, -quantity);
-						return "Product added to basket: " + product.getName() + " (Quantity: " + quantity + ")";
-					}
-					
-				} catch (IllegalArgumentException e) {
-					//print the exception message
-					System.err.println("Error: " + e.getMessage());
-					
-					return null;
-				}
-		case 2:
-				System.out.println("Input product name:");
-				String productName = consoleInput.nextLine().trim();
-				product = stockManager.findByName(productName);
-				
-				//throw error if the product name is invalid 
-				try 
-				{
+					break; // Break here to go to the common quantity logic
+			
+				case 2:
+					System.out.println("Input product name:");
+					String productName = consoleInput.nextLine().trim();
 					product = stockManager.findByName(productName);
 					
 					if (product == null) 
 					{
 						throw new IllegalArgumentException("Product name not found: " + productName);
 					}
+					break; // Break here to go to the common quantity logic
 					
-					//now ask for the quantity and validate that input as well
-					System.out.println("Input quantity:");
-					int quantity = Integer.parseInt(consoleInput.nextLine().trim());
-					
-					if (quantity <= 0) 
-					{
-						throw new IllegalArgumentException("Quantity must be a positive integer");
-					} else if (quantity > product.getStock()) 
-					{
-						throw new IllegalArgumentException("Quantity exceeds available stock. Available stock: " + product.getStock());
-					} else 
-					{
-						//valid input, add the product to the shopping basket with the specified quantity
-						customer.getShoppingBasket().addItem(product, quantity);
-						//decrease the stock of the product in the stock manager
-						stockManager.increaseProductStock(product, -quantity);
-						return "Product added to basket: " + product.getName() + " (Quantity: " + quantity + ")";
-					}
-					
-				} catch (IllegalArgumentException e) {
-					return null;
-				}
-				
-		default:
-				return "Invalid selection";
+				default:
+					return "Invalid selection";
+			}
+
+			// Common logic for quantity input and adding to basket
+			System.out.println("Input quantity:");
+			int quantity = Integer.parseInt(consoleInput.nextLine().trim());
+			
+			if (quantity <= 0) 
+			{
+				throw new IllegalArgumentException("Quantity must be a positive integer");
+			} else if (quantity > product.getStock()) 
+			{
+				throw new IllegalArgumentException("Quantity exceeds available stock. Available stock: " + product.getStock());
+			} else 
+			{
+				//valid input, add the product to the shopping basket with the specified quantity
+				customer.getShoppingBasket().addItem(product, quantity);
+				//decrease the stock of the product in the stock manager
+				stockManager.increaseProductStock(product, -quantity);
+				return "Product added to basket: " + product.getName() + " (Quantity: " + quantity + ")";
+			}
+
+		} catch (NumberFormatException e) {
+			System.err.println("Invalid input: Please enter a valid number.");
+			return null;
+		} catch (IllegalArgumentException e) {
+			System.err.println("Error: " + e.getMessage());
+			return null;
 		}
 	}
 	
@@ -121,7 +96,15 @@ public class CustomerCLI
 	private static String lookupProductById(Scanner consoleInput, StockManager stockManager)
 	{
 		System.out.println("Input product ID:");
-		int productId = Integer.parseInt(consoleInput.nextLine().trim());
+		int productId;
+		
+		try {
+			productId = Integer.parseInt(consoleInput.nextLine().trim());
+		} catch (NumberFormatException e) {
+			System.err.println("Invalid input: Please enter a valid product ID.");
+			return "";
+		}
+		
 		Product productById = stockManager.findById(productId);
 		if (productById != null) 
 		{	

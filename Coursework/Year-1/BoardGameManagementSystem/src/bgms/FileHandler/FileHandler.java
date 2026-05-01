@@ -22,7 +22,8 @@ public class FileHandler {
 		    {
 		    	String[] values = line.split("; ");
 		    	//trim each value to remove leading/trailing whitespace
-		    	for (int i = 0; i < values.length; i++) {
+		    	for (int i = 0; i < values.length; i++) 
+		    	{
 		    		values[i] = values[i].trim();
 		    	}
 		        rows.add(values);
@@ -73,20 +74,25 @@ public class FileHandler {
 		    {
 		    	//split the line and trim each value for comparison
 		    	String[] lineValues = line.split("; ");
-		    	for (int i = 0; i < lineValues.length; i++) {
+		    	for (int i = 0; i < lineValues.length; i++) 
+		    	{
 		    		lineValues[i] = lineValues[i].trim();
 		    	}
 		    	
 		    	//compare arrays instead of strings
 		    	boolean isMatch = true;
-		    	if (lineValues.length == oldRow.length) {
-		    		for (int i = 0; i < lineValues.length; i++) {
-		    			if (!lineValues[i].equals(oldRow[i])) {
+		    	if (lineValues.length == oldRow.length) 
+		    	{
+		    		for (int i = 0; i < lineValues.length; i++) 
+		    		{
+		    			if (!lineValues[i].equals(oldRow[i])) 
+		    			{
 		    				isMatch = false;
 		    				break;
 		    			}
 		    		}
-		    	} else {
+		    	} else 
+		    	{
 		    		isMatch = false;
 		    	}
 		    	
@@ -114,7 +120,8 @@ public class FileHandler {
 		    for (int i = 0; i < lines.size(); i++) 
 		    {
 		        bw.write(lines.get(i));
-		        if (i < lines.size() - 1) {
+		        if (i < lines.size() - 1) 
+		        {
 		            bw.newLine();
 		        }
 		    }

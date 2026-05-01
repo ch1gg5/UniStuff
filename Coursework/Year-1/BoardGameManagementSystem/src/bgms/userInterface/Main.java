@@ -21,7 +21,14 @@ public class Main {
             printWelcomeMenu(users);
 
             String line = consoleInput.nextLine().trim();
-            int selection = Integer.parseInt(line.trim());
+            int selection;
+            try {
+            	selection = Integer.parseInt(line.trim());
+			} catch (NumberFormatException e) {
+				System.err.println("Invalid input. Please enter a valid number.");
+				continue;
+            }
+            
             User selectedUser = null;
             // The selection corresponds to the index of the user in the list (index starts at 1), 
             //so we need to subtract 1 to get the correct index
