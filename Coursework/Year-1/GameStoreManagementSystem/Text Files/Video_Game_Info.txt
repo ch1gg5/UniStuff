@@ -1,0 +1,10 @@
+ff701,Final Fantasy VII,PlayStation,Fantasy,2025-08-01
+gta02,Grand Theft Auto 5,Xbox,Action,2025-04-01
+mnc03,Minecraft,Nintendo Switch,Sandbox,2025-06-01
+mkd03,Mario Kart 8 Deluxe,Nintendo Switch,Racing,2024-09-10
+zel04,The Legend of Zelda,Nintendo Switch,Adventure,2023-11-18
+fif05,FIFA 24,PlayStation,Sports,2024-08-22
+cod06,Call of Duty: Modern Warfare,PC,Shooter,2024-10-05
+eld07,Elden Ring,PlayStation,RPG,2025-01-14
+for08,Fortnite,PC,Battle Royale,2023-07-30
+wit10,The Witcher 3: Wild Hunt,PC,RPG,2022-12-01

@@ -1,0 +1,11 @@
+art01,Articulate,4-20,Word,2025-08-01
+bac02,Backgammon,2,Strategy,2024-08-01
+chs03,Chess,2,Strategy,2024-08-01
+scr03,Scrabble,2-4,Word,2024-09-10
+mon04,Monopoly,2-8,Economic,2025-01-20
+clu05,Cluedo,2-6,Mystery,2024-11-05
+rsk06,Risk,2-6,Strategy,2023-12-18
+cat07,Catan,3-4,Strategy,2025-02-14
+ttr08,Ticket to Ride,2-5,Family,2024-10-03
+pan09,Pandemic,2-4,Cooperative,2025-03-22
+car10,Carcassonne,2-5,Strategy,2024-07-29
